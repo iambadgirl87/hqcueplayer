@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HQ CuePlayer — Play CUE & SACD ISO on HQPlayer Embedded, No Extraction</title>
+<meta name="description" content="HQ CuePlayer is a third-party controller for HQPlayer Embedded: gapless CUE playback, CD/SACD image splitting, zero-upload NAS playback, one-click DSP scene presets and phone remote. Free tier available."/>
+<meta name="keywords" content="HQPlayer CUE, HQPlayer Embedded CUE support, HQPlayer SACD ISO, HQPlayer cue sheet playback, HQPlayer controller, HQPlayer DSP presets, CUE gapless playback"/>
+<style>
+  :root { --bg:#0e1116; --card:#171c24; --fg:#e8ecf1; --dim:#9aa7b5; --accent:#5da8ff; --accent2:#3ddc97; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Segoe UI", "Microsoft YaHei", system-ui, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.65; }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 0 20px; }
+  header { text-align: center; padding: 72px 0 40px; }
+  h1 { font-size: 2.6rem; letter-spacing: .5px; }
+  h1 span { color: var(--accent); }
+  .tag { color: var(--dim); font-size: 1.15rem; margin-top: 12px; }
+  .cta { margin-top: 28px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn { display: inline-block; padding: 13px 30px; border-radius: 10px; font-size: 1.05rem; font-weight: 600; text-decoration: none; transition: transform .12s; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-a { background: var(--accent); color: #06121f; }
+  .btn-b { background: var(--card); color: var(--fg); border: 1px solid #2c3644; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 44px 0; }
+  .card { background: var(--card); border: 1px solid #222b38; border-radius: 14px; padding: 22px; }
+  .card h3 { font-size: 1.05rem; color: var(--accent2); margin-bottom: 8px; }
+  .card p { color: var(--dim); font-size: .95rem; }
+  .trial { background: linear-gradient(135deg,#16202e,#12181f); border: 1px solid #25344a; border-radius: 14px; padding: 26px; margin: 20px 0 30px; }
+  .trial table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: .95rem; }
+  .trial td { padding: 7px 10px; border-bottom: 1px solid #1f2a38; }
+  .trial td:first-child { color: var(--dim); }
+  .ok { color: var(--accent2); } .no { color: #e06c5d; }
+  .faq { margin: 10px 0 40px; }
+  .faq h2 { font-size: 1.3rem; margin-bottom: 14px; }
+  .faq details { background: var(--card); border: 1px solid #222b38; border-radius: 10px; padding: 14px 18px; margin-bottom: 10px; }
+  .faq summary { cursor: pointer; font-weight: 600; }
+  .faq details p { color: var(--dim); font-size: .95rem; margin-top: 8px; }
+  footer { text-align: center; color: var(--dim); font-size: .85rem; padding: 30px 0 50px; }
+  .zh { color: var(--dim); font-size: .88em; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>HQ <span>CuePlayer</span></h1>
+    <p class="tag">Gapless CUE playback, CD/SACD image splitting, DSP scene presets and zero-upload NAS playback for HQPlayer Embedded.<br/>
+    <span class="zh">HQPlayer 原生不支持的 CUE 整轨 / 镜像播放，一键补齐。</span></p>
+    <div class="cta">
+      <a class="btn btn-a" href="https://github.com/iambadgirl87/hqcueplayer/releases">Free Download</a>
+      <a class="btn btn-b" href="https://gumroad.com/l/hqcueplayer">Buy Pro</a>
+      <a class="btn btn-b" href="manual/">User Manual</a>
+    </div>
+  </header>
+
+  <div class="grid">
+    <div class="card"><h3>Whole-file CUE passthrough</h3><p>Gapless whole-image playback with cue-point seek — DSP never resets between tracks. NRG / ISO / BIN images auto-split; FLAC with embedded CUE reads directly.<br/><span class="zh">整轨直通 + 刻度 Seek，跨轨 DSP 不间断；NRG/ISO/BIN 镜像自动分轨。</span></p></div>
+    <div class="card"><h3>DSP scene presets</h3><p>Filter 1x/Nx + modulator + output mode + rate in one click, auto-matched per album by keyword. One-click self-learning of all filter names, incl. legacy HQPlayer 5.1.0 firmware.<br/><span class="zh">滤波+调制+码率一键切换，按专辑自动匹配。</span></p></div>
+    <div class="card"><h3>Zero-upload NAS playback</h3><p>Map paths once, then drag &amp; drop plays straight off the NAS — nothing is copied. Browse, favorites, history, playlists, cross-album advance, shuffle/repeat.<br/><span class="zh">路径映射后拖放即播，文件留在 NAS 直读。</span></p></div>
+    <div class="card"><h3>Bit-perfect proof</h3><p>PCM hash compared byte-by-byte to prove every output sample is lossless — the confidence audiophiles demand.<br/><span class="zh">PCM 哈希逐字节比对，无损自证。</span></p></div>
+    <div class="card"><h3>Phone remote</h3><p>Scan a QR code and control play, skip, volume and DSP presets — no app to install, Windows can even be off.<br/><span class="zh">扫码即控，无需装 App。</span></p></div>
+    <div class="card"><h3>Direct rate selection</h3><p>Pick the output rate even on legacy HQPlayer 5.1.0 (something the official UI lacks): PCM 32k–1536k / DSD64–DSD1024.<br/><span class="zh">连老固件都能直选输出码率。</span></p></div>
+  </div>
+
+  <div class="trial">
+    <h3>Free vs Pro</h3>
+    <table>
+      <tr><td></td><td class="ok">Free</td><td class="ok">Pro</td></tr>
+      <tr><td>CUE playback</td><td class="ok">First 5 tracks per album</td><td class="ok">Unlimited</td></tr>
+      <tr><td>Manual DSP switching / filter self-learning</td><td class="ok">✓</td><td class="ok">✓</td></tr>
+      <tr><td>DSP scene presets + album auto-match</td><td class="no">✗</td><td class="ok">✓</td></tr>
+      <tr><td>Direct rate / NRG / ISO image splitting</td><td class="no">✗</td><td class="ok">✓</td></tr>
+      <tr><td>Cross-album advance / playlists / phone remote</td><td class="no">Limited</td><td class="ok">✓ Unlimited</td></tr>
+      <tr><td>Bit-perfect proof / NAS direct read</td><td class="ok">✓</td><td class="ok">✓</td></tr>
+    </table>
+    <p style="margin-top:14px;color:var(--dim)">The free tier is forever — no time limit, no noise, no watermarking. Evaluate fully before you decide.<br/>
+    <span class="zh">免费版永久、不限天数、不加噪音。</span></p>
+  </div>
+
+  <div class="faq">
+    <h2>FAQ</h2>
+    <details><summary>Does HQPlayer support CUE sheets natively?</summary>
+    <p>No. HQPlayer Embedded does not parse CUE sheets or disc images. HQ CuePlayer fills that gap: it parses the CUE (any encoding, GBK/Big5/UTF-8), slices losslessly in memory, and feeds the HQPlayer engine bit-perfect audio — no manual extraction, no double disk usage.</p></details>
+    <details><summary>How do I play SACD ISO or CD images on HQPlayer Embedded?</summary>
+    <p>Drop the image file (.iso .nrg .bin .ccd .img) into HQ CuePlayer. It is split into tracks in memory (Pro feature) and played through HQPlayer immediately — the original image stays untouched.</p></details>
+    <details><summary>Does it affect sound quality?</summary>
+    <p>No. HQ CuePlayer never resamples, never adjusts volume, never touches the audio stream. A built-in PCM hash comparison proves bit-perfect delivery to the HQPlayer engine.</p></details>
+    <details><summary>How does licensing work?</summary>
+    <p>Buy once, get an instant license key (HQCP-XXXX-XXXX), paste it into the app and hit Activate — done in seconds, bound to your player hardware automatically. Runs 100% offline afterwards, no phone-home. One key per player; contact support with your order receipt for a free transfer if you change hardware.</p></details>
+    <details><summary>What do I need to run it?</summary>
+    <p>A Linux box running HQPlayer Embedded 5.x (or an NAA bridge), a Windows PC for the client, and your music on a NAS (SMB) or local to the player. The Linux daemon (hqpd) deploys itself automatically on first connect.</p></details>
+  </div>
+
+  <footer>
+    HQ CuePlayer — solo-developed · Windows client + Linux player daemon<br/>
+    HQ CuePlayer is an independent third-party controller and is not affiliated with, endorsed, or sponsored by Signalyst. HQPlayer is a trademark of Signalyst.<br/>
+    <span class="zh">HQ CuePlayer 是独立第三方控制前端，与 Signalyst / HQPlayer 官方无任何关联。</span>
+  </footer>
+</div>
+</body>
+</html>
