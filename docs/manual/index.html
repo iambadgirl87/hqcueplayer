@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HQ CuePlayer — User Manual</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm; }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", "Helvetica Neue", sans-serif; color: #2b3527; line-height: 1.75; font-size: 10.5pt; margin: 0; }
+  h1 { font-size: 26pt; color: #33542b; margin: 0 0 4pt; }
+  h2 { font-size: 15pt; color: #33542b; border-left: 5px solid #7ba05b; padding-left: 10px; margin: 26pt 0 8pt; page-break-after: avoid; }
+  h3 { font-size: 11.5pt; color: #4e7a45; margin: 14pt 0 4pt; page-break-after: avoid; }
+  p, li { margin: 4pt 0; }
+  .dim { color: #8a9785; font-size: 9pt; }
+  .cover { text-align: center; padding-top: 150pt; }
+  .cover .sub { font-size: 13pt; color: #5c6b52; margin-top: 10pt; }
+  .cover .tag { display: inline-block; background: #eef4e6; border: 1px solid #c4d6bb; border-radius: 20px; padding: 4px 18px; margin: 24pt 6px 0; color: #4e7a45; font-size: 10pt; }
+  .cover .foot { margin-top: 150pt; color: #8a9785; font-size: 9pt; }
+  .toc { background: #f4f8ef; border: 1px solid #d5e2cc; border-radius: 8px; padding: 14pt 20pt; }
+  .toc div { margin: 3pt 0; }
+  img { max-width: 100%; border: 1px solid #c4d6bb; border-radius: 6px; margin: 8pt 0; }
+  .shot { text-align: center; page-break-inside: avoid; }
+  .shot .cap { color: #8a9785; font-size: 8.5pt; margin-top: 2pt; }
+  .step { display: flex; gap: 10px; margin: 8pt 0; page-break-inside: avoid; }
+  .step .n { flex: 0 0 22pt; height: 22pt; background: #7ba05b; color: #fff; border-radius: 50%; text-align: center; line-height: 22pt; font-weight: 700; }
+  .step .b { flex: 1; }
+  table { width: 100%; border-collapse: collapse; margin: 8pt 0; font-size: 9.5pt; }
+  td, th { border: 1px solid #d5e2cc; padding: 5pt 8pt; text-align: left; }
+  th { background: #eef4e6; color: #33542b; }
+  .tip { background: #f4f8ef; border-left: 4px solid #7ba05b; border-radius: 0 6px 6px 0; padding: 8pt 12pt; margin: 8pt 0; page-break-inside: avoid; }
+  .warn { background: #fdf3ef; border-left: 4px solid #c07a5a; }
+  code { background: #eef4e6; border-radius: 4px; padding: 1px 5px; font-family: Consolas, monospace; font-size: 9pt; }
+  .pb { page-break-before: always; }
+  ul { padding-left: 18pt; }
+</style>
+</head>
+<body>
+
+<!-- ===== Cover ===== -->
+<div class="cover">
+  <h1>HQ CuePlayer</h1>
+  <div class="sub">User Manual</div>
+  <div class="sub" style="font-size:11pt;margin-top:6pt">Gapless CUE playback, one-click deployment and DSP scene presets for HQPlayer Embedded</div>
+  <div>
+    <span class="tag">Whole-file CUE</span>
+    <span class="tag">Zero-upload NAS</span>
+    <span class="tag">DSP Presets</span>
+    <span class="tag">Phone Remote</span>
+    <span class="tag">Image Splitting</span>
+  </div>
+  <div class="foot">v0.9 · 2026<br>
+  HQ CuePlayer is an independent third-party controller.<br>
+  Not affiliated with, endorsed, or sponsored by Signalyst.</div>
+</div>
+
+<!-- ===== Contents ===== -->
+<div class="pb"></div>
+<h2>Contents</h2>
+<div class="toc">
+  <div>1. What it is</div>
+  <div>2. What you need</div>
+  <div>3. Step 1 — Deploy hqpd over SSH</div>
+  <div>4. Step 2 — Mount your NAS</div>
+  <div>5. Step 3 — Path mapping (zero upload)</div>
+  <div>6. Connect &amp; play</div>
+  <div>7. DSP settings &amp; presets</div>
+  <div>8. Phone remote</div>
+  <div>9. NAA bridge</div>
+  <div>10. License &amp; activation</div>
+  <div>11. FAQ</div>
+</div>
+
+<!-- ===== 1 ===== -->
+<h2>1. What it is</h2>
+<p>HQ CuePlayer is a <b>companion controller</b> for HQPlayer Embedded. HQPlayer does not play CUE sheets natively — HQ CuePlayer fixes that, turning single-file FLAC/WAV rips (and NRG/ISO/BIN images) into a track-level, gapless, cross-album playlist experience. It also turns every Linux chore — deployment, NAS mounts, DSP tuning — into one-click operations.</p>
+<div class="tip"><b>What it is not:</b> it is not a playback engine and does not include HQPlayer. All decoding, resampling and output are performed by your own licensed HQPlayer — the audio path is bit-identical to the official pipeline.</div>
+
+<!-- ===== 2 ===== -->
+<h2>2. What you need</h2>
+<table>
+  <tr><th>Item</th><th>Notes</th></tr>
+  <tr><td>A player running HQPlayer Embedded</td><td>x86 box, TV box or dev board (amd64 / arm64), with an activated HQPlayer license</td></tr>
+  <tr><td>A Windows PC</td><td>Runs HQ CuePlayer (Win10/11), same LAN as the player</td></tr>
+  <tr><td>A NAS (optional, recommended)</td><td>SMB share holding your music; without one you can still drag-upload from Windows</td></tr>
+  <tr><td>An NAA bridge (optional)</td><td>A second device running NAA (e.g. a Pi feeding your DAC)</td></tr>
+  <tr><td>SSH credentials</td><td>For the player (HQPlayer OS defaults to root with the password you set at install)</td></tr>
+</table>
+
+<!-- ===== 3 ===== -->
+<div class="pb"></div>
+<h2>3. Step 1 — Deploy hqpd over SSH</h2>
+<p>The server side of HQ CuePlayer is <b>hqpd</b>, a tiny daemon living on the player. Deploy once, forget forever:</p>
+<div class="step"><div class="n">1</div><div class="b">Open the <b>SSH Deploy</b> page. Enter the player IP (or use <b>Scan</b> to discover it) and the SSH credentials.</div></div>
+<div class="step"><div class="n">2</div><div class="b">Click <b>Deploy</b>. It auto-detects the CPU architecture, uploads hqpd, registers a systemd service and self-checks — about 20 seconds, all green.</div></div>
+<div class="step"><div class="n">3</div><div class="b"><code>✓ API pairing token retrieved</code> means secure pairing completed automatically. Nothing else to configure.</div></div>
+<div class="shot"><img src="shot3.png"><div class="cap">Fig. 1 — A successful deploy</div></div>
+<div class="tip"><b>About passwords:</b> every field (including passwords) is remembered automatically and stored only in <code>hqcueplayer.json</code> on your own PC. Nothing is uploaded anywhere.</div>
+
+<!-- ===== 4 ===== -->
+<h2>4. Step 2 — Mount your NAS</h2>
+<p>This lets the player read music straight off your NAS — the foundation of instant, zero-upload playback.</p>
+<div class="step"><div class="n">1</div><div class="b">On the <b>NAS Settings</b> page (left column), fill in the player SSH address, the SMB share (e.g. <code>//192.168.1.26/music</code>) and NAS credentials. Leave credentials blank for public shares — guest mode kicks in automatically.</div></div>
+<div class="step"><div class="n">2</div><div class="b">Click <b>Test</b> to probe the SMB port first, then <b>Mount NAS</b>.</div></div>
+<div class="step"><div class="n">3</div><div class="b">Keep <b>Write fstab</b> checked for boot-time auto-mount. Leave the protocol on Auto; only fall back to SMB 2.0/1.0 for ancient NAS boxes.</div></div>
+<div class="shot"><img src="shot2.png"><div class="cap">Fig. 2 — NAS Settings (left: mount; right: web settings, path mapping, license)</div></div>
+<div class="tip warn"><b>If mounting fails:</b> the log tells you why (bad address, bad credentials, protocol mismatch). Anti-garbled-filename and anti-lockup parameters are built in, and if the NAS drops offline the player retries the mount every minute automatically.</div>
+
+<!-- ===== 5 ===== -->
+<div class="pb"></div>
+<h2>5. Step 3 — Path mapping (zero upload)</h2>
+<p>Tell HQ CuePlayer "this Windows path equals that player path". From then on, dropping a CUE into the window makes the player <b>read the original file straight off the NAS</b> — multi-GB rips open instantly, not a single byte uploaded.</p>
+<table>
+  <tr><th>Setting</th><th>Example</th></tr>
+  <tr><td>Windows prefix</td><td><code>\\192.168.1.26\9394\music</code> (as seen in Explorer; separate multiple prefixes with <code>;</code>)</td></tr>
+  <tr><td>Linux prefix</td><td><code>/mnt/nas</code> (the mount point from Step 2)</td></tr>
+</table>
+<p>Click <b>Save Mapping</b>. Hostname and IP are treated as the same host, so either spelling works.</p>
+
+<!-- ===== 6 ===== -->
+<h2>6. Connect &amp; play</h2>
+<div class="step"><div class="n">1</div><div class="b">Enter the player IP and click <b>Connect</b> (or <b>Scan</b>). <code>Connected ✓</code> in the top-right means you're ready.</div></div>
+<div class="step"><div class="n">2</div><div class="b">Drag <b>.cue files</b> (or whole folders, ISO/NRG images) from Explorer into the window. Tracks are appended to the current playlist.</div></div>
+<div class="step"><div class="n">3</div><div class="b"><b>Double-click</b> any track to start. When an album finishes, the next album in the playlist starts automatically.</div></div>
+<div class="shot"><img src="shot6.png"><div class="cap">Fig. 3 — Player view: playlist, signal chain and engine health</div></div>
+<h3>Everyday controls</h3>
+<table>
+  <tr><th>Action</th><th>Result</th></tr>
+  <tr><td>Double-click a track</td><td>Play from this track onward</td></tr>
+  <tr><td>Ctrl+click a track</td><td>Queue it next (after the current track)</td></tr>
+  <tr><td>Right-click a track</td><td>Album view: skip (strikethrough); Playlist view: remove from list</td></tr>
+  <tr><td>Drag a track</td><td>Reorder the playlist (saved automatically)</td></tr>
+  <tr><td>Click an album header ▶/▼</td><td>Collapse/expand the album</td></tr>
+  <tr><td>DSP Settings (right panel)</td><td>Output mode / filters / shaper / rate (see §7)</td></tr>
+  <tr><td>🔀 🔁 (footer)</td><td>Shuffle; repeat: off → all → one</td></tr>
+</table>
+<div class="tip">The right panel is an audiophile's comfort zone: <b>Signal Chain</b> shows source format → filter → shaper → output in real time, and <b>Engine Health</b> shows load and the clipping counter. If Clips starts climbing, the DSP chain is over-amplified — pull the volume down 1–2 dB.</div>
+
+<!-- ===== 7 ===== -->
+<div class="pb"></div>
+<h2>7. DSP settings &amp; presets</h2>
+<p>Click <b>DSP Settings…</b> in the right panel: output mode (PCM / DSD), filter 1x/Nx, shaper and rate — all applied in real time.</p>
+<div class="shot"><img src="shot5.png"><div class="cap">Fig. 4 — DSP settings with presets and auto-match rules</div></div>
+<h3>Three power features</h3>
+<ul>
+  <li><b>Learn All Filters</b> — scans and names every filter/shaper ID in about a minute. Click once after an OS reinstall (or whenever names revert to bare IDs).</li>
+  <li><b>Scene presets</b> — snapshot the entire chain (mode + filters + shaper + rate + volume) for one-click recall. One for classical, one for jazz, one for late-night listening. Export/import supported for backup and sharing.</li>
+  <li><b>Auto-match rules</b> — bind a keyword to a preset; when the album title / artist / path matches, the preset applies itself. E.g. keyword "jazz" → your jazz preset follows automatically.</li>
+</ul>
+
+<!-- ===== 8 ===== -->
+<h2>8. Phone remote</h2>
+<p>Click <b>Phone Remote</b> and scan the QR code: play, skip, volume and DSP presets from any phone browser — no app to install. The phone talks directly to the player over your LAN, so <b>your Windows PC can be switched off afterwards</b>.</p>
+<div class="shot"><img src="shot1.png" style="max-width:72%"><div class="cap">Fig. 5 — Scan to control; Windows can be off afterwards</div></div>
+
+<!-- ===== 9 ===== -->
+<h2>9. NAA bridge</h2>
+<p>If your DAC hangs off a second device (NAA), the <b>NAA Bridge</b> page provides an independent SSH channel: connection test, shutdown, reboot and custom commands, with credentials stored separately from the player. Playback control itself doesn't need this page — it's a convenience for tinkerers.</p>
+<div class="shot"><img src="shot4.png" style="max-width:80%"><div class="cap">Fig. 6 — NAA bridge management</div></div>
+
+<!-- ===== 10 ===== -->
+<div class="pb"></div>
+<h2>10. License &amp; activation</h2>
+<table>
+  <tr><th></th><th>Free</th><th>Pro</th></tr>
+  <tr><td>CUE playback</td><td>First 5 tracks per album</td><td>Unlimited</td></tr>
+  <tr><td>Manual DSP / Learn All Filters</td><td>✓</td><td>✓</td></tr>
+  <tr><td>DSP presets / direct rate / image splitting</td><td>—</td><td>✓</td></tr>
+  <tr><td>Cross-album advance / playlists / phone remote</td><td>1 playlist × 10 tracks</td><td>✓ Unlimited</td></tr>
+  <tr><td>Duration</td><td>Forever, no watermarking</td><td>Perpetual, one-time purchase</td></tr>
+</table>
+<p>To activate: copy the <b>Machine ID</b> from the License panel (NAS Settings page, bottom-right) and send it to the seller. Import the <code>license.lic</code> you receive via <b>Import License File</b>. The license is bound to the player's hardware and verified <b>fully offline</b> — no internet connection, no phone-home, ever.</p>
+<div class="tip">The free tier is forever — no time limit, no audio watermarking. Please evaluate thoroughly on your own hardware before purchasing.</div>
+
+<!-- ===== 11 ===== -->
+<h2>11. FAQ</h2>
+<h3><code>ssh: handshake failed: EOF</code> on deploy or mount?</h3>
+<p>The player's SSH service (dropbear) rate-limits rapid repeated connections. Wait 1–2 minutes and retry — it is not a wrong password.</p>
+<h3>Can't connect to the player?</h3>
+<p>① Confirm the PC and player are on the same LAN. ② Use Scan — the IP may have changed. ③ Re-run Deploy to make sure hqpd is installed and running.</p>
+<h3>NAS mount fails?</h3>
+<p>Click Test first. Port unreachable → check IP/firewall. Port reachable but mount fails → check the log: nine times out of ten it's a typo in the share path or credentials. For ancient NAS boxes, switch the protocol to SMB 2.0 or 1.0.</p>
+<h3>Garbled CUE titles?</h3>
+<p>Shouldn't happen. Worldwide charset auto-detection is built in — GBK, Big5, Shift-JIS, EUC-KR, UTF-8 and Windows-125x are all handled.</p>
+<h3>Stuttering, or the Clips counter climbing?</h3>
+<p>Stuttering: engine overload — lower the rate or pick a lighter filter. Clipping: too much gain in the DSP chain — pull volume down 1–2 dB.</p>
+<h3>Reinstalling the OS — do I need a new license?</h3>
+<p>No. The license binds to the hardware (board + NIC). Re-import your original license.lic after reinstalling. For a new machine, contact the seller.</p>
+<h3>Does it collect any data?</h3>
+<p>No. There is no telemetry of any kind. License verification is offline, and all configuration lives on your own PC and player.</p>
+
+<div class="tip" style="margin-top:22pt">
+<b>Disclaimer</b><br>
+HQ CuePlayer is an independent third-party GUI controller and is not affiliated with, endorsed, or sponsored by Signalyst. HQPlayer is a trademark of Signalyst. A legitimately licensed HQPlayer is required to use this software.
+</div>
+
+</body>
+</html>
