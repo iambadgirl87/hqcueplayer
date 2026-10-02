@@ -31,14 +31,15 @@ HQPlayer sounds world-class, but it officially supports neither CUE sheets nor d
 
 ## License
 
+- **Public beta**: all Pro features unlocked for testers — free test keys, just ask in the forum thread. Bug reports welcome!
 - **Free tier**: first 5 tracks of each album + basic DSP switching — no time limit, no noise, no watermark
 - **Pro**: DSP scene presets, direct rate selection, image track-splitting, cross-album gapless, playlists, mobile remote
 
-**Instant activation** — buy, receive your key (`HQCP-XXXX-XXXX`), paste it into the app, hit **Activate**. Done in seconds: the software binds the key to your player hardware **automatically** — no machine IDs to copy, no email round-trips, no waiting.
+**Instant activation** — paste your key (`HQCP-XXXX-XXXX`), hit **Activate**. Done in seconds: the software binds the key to your player hardware **automatically** — no machine IDs to copy, no email round-trips, no waiting.
 
 - Once activated it runs **100% offline forever** — no phone-home, no telemetry
 - Air-gapped player? Offline license-file import is available as a fallback
-- One key = one player. OS reinstall or hardware change alters the machine ID — just contact the seller with your order receipt for a transfer
+- One key = one player. OS reinstall or hardware change alters the machine ID — just contact the author for a transfer
 
 ## Disclaimer
 
